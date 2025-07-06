@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import login from "../assets/Login.jpg"
 import { useNavigate } from "react-router-dom";
 import api from "../config/api";
+import {toast} from "react-hot-toast";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -24,17 +25,17 @@ const Register = () => {
     console.log(registerData);
     try{
       const res = await api.post("/auth/register",registerData);
-      alert(res.data.message)
+      toast.success(res.data.message)
+      setRegisterData({
+        fullName: "",
+        email: "",
+        password: "",
+        phone: "",
+      })
     }catch(error){
-      alert(error.message)
+      toast.error(error.message)
     }
 
-    setRegisterData({
-      fullName: "",
-      email: "",
-      password: "",
-      phone: "",
-    })
   }
 
   return (
