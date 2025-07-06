@@ -65,7 +65,7 @@ const Login = () => {
               Don't have an account?{" "}
               <span
                 className="text-blue-400 underline cursor-pointer"
-                onClick={() =>navigate("Register")}
+                onClick={() =>navigate("/Register")}
               >
                 Register
               </span>
