@@ -5,14 +5,18 @@ import morgan from 'morgan';
 import cors from 'cors';
 import connectDB from './src/config/db.js';
 import authroutes from './src/router/authRoutes.js';
+import UserRoutes from "./src/router/userRoutes.js"
+import cookieParser from 'cookie-parser';
 
 const app = express();
 app.use(cors({origin :"http://localhost:5173",credentials:true}));
 
 app.use(express.json());
+app.use(cookieParser());
 app.use(morgan("dev"))
 
 app.use("/auth",authroutes);
+app.use("/user",UserRoutes)
 
 app.get("/",(req,res)=>{
     res.json({message:"Server connected"});

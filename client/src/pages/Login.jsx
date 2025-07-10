@@ -10,37 +10,37 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const formSubmit=async (e) =>{
+  const formSubmit = async (e) => {
     e.preventDefault();
     const logindata = {
       email: email,
       password: password,
-    }
-  
-    try{
-      const res = await api.post("/auth/login",logindata);
+    };
+
+    try {
+      const res = await api.post("/auth/login", logindata);
       toast.success(res.data.message);
-       setPassword("");
-       setEmail("");
-       navigate("/userDashboard")
-    }catch(error){
-      toast.error(`Error : ${error.response?.status || error.message}| ${error.response?.data.message || " "}`)
+      setPassword("");
+      setEmail("");
+      navigate("/userDashboard");
+    } catch (error) {
+      toast.error(
+        `Error : ${error.response?.status || error.message}| ${
+          error.response?.data.message || " "
+        }`
+      );
     }
     console.log(logindata);
-  }
+  };
 
   return (
     <>
       <div className="mt-[-10%] relative h-screen flex justify-center items-center">
-        <img
-          src={login}
-          alt=""
-          className="absolute -z-1 opacity-80 w-full"
-        />
+        <img src={login} alt="" className="absolute -z-1 opacity-80 w-full" />
 
         <div className="min-h-screen w-200 flex items-center justify-center font-serif mt-30">
           <div className="bg-white/10 backdrop-blur-xl p-10 rounded-2xl shadow-2xl w-full max-w-md border border-black-500">
-            <h2 className="text-3xl text-center font-bold text-blue-900 mb-6 drop-shadow-md"> 
+            <h2 className="text-3xl text-center font-bold text-blue-900 mb-6 drop-shadow-md">
               Login
             </h2>
             <form className="space-y-5" onSubmit={formSubmit}>
@@ -77,7 +77,7 @@ const Login = () => {
               Don't have an account?{" "}
               <span
                 className="text-blue-400 underline cursor-pointer"
-                onClick={() =>navigate("/Register")}
+                onClick={() => navigate("/Register")}
               >
                 Register
               </span>
