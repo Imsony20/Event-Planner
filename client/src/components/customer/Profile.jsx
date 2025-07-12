@@ -1,10 +1,10 @@
 import React, { useEffect ,useState } from "react";
 import toast from "react-hot-toast";
-import api from "../config/api";
+import api from "../../config/api";
 import {CiEdit} from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
 
-const UserDashboard = () => {
+const Profile = () => {
   const navigate =useNavigate();
   const [userdata, setUserData] = useState("");
 
@@ -65,4 +65,4 @@ const UserDashboard = () => {
   )
 }
 
-export default UserDashboard;
+export default Profile;

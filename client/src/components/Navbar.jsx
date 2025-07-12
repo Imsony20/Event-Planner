@@ -6,7 +6,7 @@ const Navbar = () => {
  
   return (
     <>
-      <div className="bg-transparent flex justify-center gap-10  text-xl items-center sticky top-4 z-99">
+      <div className="bg-transparent flex justify-center gap-10 ml-10 text-xl items-center sticky top-4 z-99">
         <Link to={"/"}>Home</Link>
         <Link to={"/about"}>About</Link>
         <Link to={"/services"}>Our Services</Link>
@@ -17,7 +17,7 @@ const Navbar = () => {
         <Link to={"/contact"}>Contact Us</Link>
 
 
-        <button className="border p-3 rounded-md" 
+        <button className="border p-2 rounded-md" 
         onClick={()=> navigate("login")}>{" "}Login to Plan Now!{" "}</button>
         
       </div>

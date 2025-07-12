@@ -7,6 +7,8 @@ import connectDB from './src/config/db.js';
 import authroutes from './src/router/authRoutes.js';
 import UserRoutes from "./src/router/userRoutes.js"
 import cookieParser from 'cookie-parser';
+import cloudinary from './src/config/cloudinary.js';
+
 
 const app = express();
 app.use(cors({origin :"http://localhost:5173",credentials:true}));
@@ -33,7 +35,17 @@ app.use((err,req,res,next)=>{
 
 const port = process.env.PORT || 5000;
 
-app.listen(port,()=>{
+app.listen(port,async()=>{
     console.log("Server started at", port);
-    connectDB();
+    
+    try{
+        await connectDB();
+     await cloudinary.api.resources({max_results:1})
+     console.log("Cloudinary Connected")
+
+    }catch(error){
+         console.log("error");
+         process.exit(1);
+        }
+    
 });
