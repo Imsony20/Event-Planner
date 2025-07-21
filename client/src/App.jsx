@@ -9,6 +9,7 @@ import {Toaster} from 'react-hot-toast';
 import UserDashboard from "./pages/UserDashboard";
 import UserDashboardEdit from "./pages/UserDashboardEdit";
 import CustomerDashboard from "./pages/CustomerDashboard"
+import ContactUs from "./pages/ContactUs";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="/" element={<Home/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/Register" element={<Register/>} />
+          <Route path="/contact" element={<ContactUs/>} />
           <Route path="/UserDashboard" element={<UserDashboard/>} />
           <Route path="/UserDashboardEdit" element={<UserDashboardEdit />} />
           <Route path="/dashboard" element={<CustomerDashboard />} />

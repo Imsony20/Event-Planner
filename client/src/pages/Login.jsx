@@ -3,9 +3,11 @@ import login from "../assets/Login.jpg";
 import { useNavigate } from "react-router-dom";
 import api from "../config/api";
 import toast from "react-hot-toast";
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
   const navigate = useNavigate();
+  //const {user,setUser,isLogin,setIsLogin}
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

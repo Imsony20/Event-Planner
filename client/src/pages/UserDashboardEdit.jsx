@@ -12,19 +12,19 @@ const UserDashboardEdit = () => {
   const [picture, setPicture] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const fetchUserData = async () => {
-    try {
-      const res = await api.get("/user/profile");
-      setUserData(res.data.data);
-      toast.success(res.data.message);
-    } catch (error) {
-      toast.error(
-        `Error : ${error.response?.status || error.message} | ${
-          error.response?.data.message || ""
-        }`
-      );
-    }
-  };
+  // const fetchUserData = async () => {
+  //   try {
+  //     const res = await api.get("/user/profile");
+  //     setUserData(res.data.data);
+  //     toast.success(res.data.message);
+  //   } catch (error) {
+  //     toast.error(
+  //       `Error : ${error.response?.status || error.message} | ${
+  //         error.response?.data.message || ""
+  //       }`
+  //     );
+  //   }
+  // };
 
   const handelChange = (e) => {
     const { name, value } = e.target;
@@ -66,9 +66,9 @@ const UserDashboardEdit = () => {
     }
   };
 
-  useEffect(() => {
-    fetchUserData();
-  }, []);
+  // useEffect(() => {
+  //   fetchUserData();
+  // }, []);
 
   return (
     <>

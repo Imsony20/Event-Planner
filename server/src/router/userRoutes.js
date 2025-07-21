@@ -1,7 +1,9 @@
 import express from 'express';
-import { GetProfile, UpdateProfile } from '../controller/userController.js';
+import { GetProfile } from '../controller/userController.js';
 import { Protect } from '../middlewares/authMiddleware.js';
 import multer from 'multer';
+import { UpdateUser , deleteUser} from '../controller/authController.js';
+
 
 const upload = multer();
 const router = express.Router();
@@ -9,6 +11,7 @@ const router = express.Router();
 
 router.get("/profile",Protect, GetProfile);
 
-router.put("/update",Protect,upload.single("picture"), UpdateProfile)
+router.put("/update",Protect,upload.single("picture"), UpdateUser)
 
+router.put("/deactivate", Protect , deleteUser)
 export default router;
