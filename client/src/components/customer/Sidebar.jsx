@@ -7,16 +7,25 @@ import {
   FaCommentDots,
   FaSignOutAlt,
 } from "react-icons/fa";
+import api from "../../config/api";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 const Sidebar = ({ active, setActive }) => {
-  const handleLogout = async () =>{
-    const navigate = useNavigate();
-    
-  }
+  const { setUser, setIsLogin, setIsAdmin } = useAuth();
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    const res = await api.get("/auth/logout");
+    setUser("");
+    sessionStorage.removeItem("EventUser");
+    setIsLogin(false);
+    setIsAdmin(false);
+    navigate("/");
+  };
+
   return (
     <>
-      <div className="w-100 bg-gradient-to-b mt-8 from-slate-50 to-slate-100 border-r border-gray-200 min-h-[87vh] p-6 flex flex-col justify-between shadow-lg">
+      <div className="w-100 bg-gradient-to-b from-slate-50 to-slate-100 border-r border-gray-200 min-h-[87vh] p-6 flex flex-col justify-between shadow-lg">
         <div>
           <div className="border-b-2 border-indigo-200 pb-4 h-fit">
             <span className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
@@ -75,7 +84,10 @@ const Sidebar = ({ active, setActive }) => {
           </div>
         </div>
         <div>
-          <button className="text-lg text-red-600 font-semibold w-full border-2 border-red-300 p-4 rounded-xl flex gap-3 items-center justify-center hover:bg-red-500 hover:text-white hover:border-red-500 transition-all duration-300 hover:shadow-lg bg-red-50">
+          <button
+            className="text-lg text-red-600 font-semibold w-full border-2 border-red-300 p-4 rounded-xl flex gap-3 items-center justify-center hover:bg-red-500 hover:text-white hover:border-red-500 transition-all duration-300 hover:shadow-lg bg-red-50"
+            onClick={handleLogout}
+          >
             Logout
             <FaSignOutAlt className="text-xl" />
           </button>

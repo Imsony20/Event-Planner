@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import login from "../assets/Login.jpg"
+import Login from "../assets/Login.jpg";
 import { useNavigate } from "react-router-dom";
 import api from "../config/api";
-import {toast} from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -11,50 +11,53 @@ const Register = () => {
     email: "",
     password: "",
     phone: "",
-  })
+  });
 
   const handelChange = (e) => {
     const { name, value } = e.target;
 
-    setRegisterData((previousData) => ({ ...previousData, [name]: value }))
-  }
+    setRegisterData((previousData) => ({ ...previousData, [name]: value }));
+  };
 
-  const handelSubmit =async (e) => {
+  const handelSubmit = async (e) => {
     e.preventDefault();
 
     console.log(registerData);
-    try{
-      const res = await api.post("/auth/register",registerData);
-      toast.success(res.data.message)
+    try {
+      const res = await api.post("/auth/register", registerData);
+      toast.success(res.data.message);
       setRegisterData({
         fullName: "",
         email: "",
         password: "",
         phone: "",
-      })
-    }catch(error){
-      toast.error(error.message)
+      });
+    } catch (error) {
+      toast.error(
+        `Error : ${error.response?.status || error.message} | ${
+          error.response?.data.message || ""
+        }`
+      );
     }
-
-  }
+  };
 
   return (
     <>
       <div className="mt-[-10%] relative h-screen flex justify-center items-center">
         <img
-          src={login}
+          src={Login}
           alt=""
           className="absolute -z-1 opacity-80 w-full"
         />
 
         <div className="min-h-screen w-200 flex items-center justify-center font-serif mt-70">
           <div className="bg-white/10 backdrop-blur-xl p-10 rounded-2xl shadow-2xl w-full max-w-md border border-yellow-500">
-            <h2 className="text-3xl text-center font-bold text-yellow-500 mb-6 drop-shadow-md">
+            <h2 className="text-3xl text-center font-bold text-pink-500 mb-6 drop-shadow-md">
               Register
             </h2>
             <form className="space-y-5" onSubmit={handelSubmit}>
               <div>
-                <label className="text-yellow-500 block mb-1">Name</label>
+                <label className="text-pink-500 block mb-1">Name</label>
                 <input
                   type="text"
                   name="fullName"
@@ -66,7 +69,7 @@ const Register = () => {
                 />
               </div>
               <div>
-                <label className="text-yellow-500 block mb-1">Email</label>
+                <label className="text-pink-500 block mb-1">Email</label>
                 <input
                   type="email"
                   name="email"
@@ -78,7 +81,7 @@ const Register = () => {
                 />
               </div>
               <div>
-                <label className="text-yellow-500 block mb-1">Phone Number</label>
+                <label className="text-pink-500 block mb-1">Phone Number</label>
                 <input
                   type="tel"
                   name="phone"
@@ -90,7 +93,7 @@ const Register = () => {
                 />
               </div>
               <div>
-                <label className="text-yellow-500 block mb-1">Password</label>
+                <label className="text-pink-500 block mb-1">Password</label>
                 <input
                   type="password"
                   name="password"
@@ -112,7 +115,7 @@ const Register = () => {
               Already have an account?{" "}
               <span
                 className="text-pink-400 underline cursor-pointer"
-                onClick={() => navigate("/Login")}
+                onClick={() => navigate("/login")}
               >
                 Login
               </span>

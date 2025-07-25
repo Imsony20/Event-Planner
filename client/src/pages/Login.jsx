@@ -1,18 +1,18 @@
 import React, { useState } from "react";
-import login from "../assets/Login.jpg";
+import Picc from "../assets/Picc.jpg";
 import { useNavigate } from "react-router-dom";
 import api from "../config/api";
-import toast from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
   const navigate = useNavigate();
-  //const {user,setUser,isLogin,setIsLogin}
+  const { user, setUser, isLogin, setIsLogin, isAdmin, setIsAdmin } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const formSubmit = async (e) => {
+  const formSubmitKro = async (e) => {
     e.preventDefault();
     const logindata = {
       email: email,
@@ -24,13 +24,19 @@ const Login = () => {
       toast.success(res.data.message);
       setPassword("");
       setEmail("");
-      navigate("/dashboard");
+      setUser(res.data.data);
+      sessionStorage.setItem("EventUser",JSON.stringify(res.data.data));
+      setIsLogin(true);
+      res.data.data.role === "Admin"
+        ? (setIsAdmin(true), navigate("/adminpanel"))
+        : navigate("/dashboard");
     } catch (error) {
       toast.error(
-        `Error : ${error.response?.status || error.message}| ${
-          error.response?.data.message || " "
+        `Error : ${error.response?.status || error.message} | ${
+          error.response?.data.message || ""
         }`
       );
+      console.log(error);
     }
     console.log(logindata);
   };
@@ -38,19 +44,23 @@ const Login = () => {
   return (
     <>
       <div className="mt-[-10%] relative h-screen flex justify-center items-center">
-        <img src={login} alt="" className="absolute -z-1 opacity-80 w-full" />
+        <img
+          src={Picc}
+          alt=""
+          className="absolute -z-1 opacity-80 w-full"
+        />
 
         <div className="min-h-screen w-200 flex items-center justify-center font-serif mt-30">
-          <div className="bg-white/10 backdrop-blur-xl p-10 rounded-2xl shadow-2xl w-full max-w-md border border-black-500">
-            <h2 className="text-3xl text-center font-bold text-blue-900 mb-6 drop-shadow-md">
+          <div className="bg-white/10 backdrop-blur-xl p-10 rounded-2xl shadow-2xl w-full max-w-md border border-yellow-500">
+            <h2 className="text-3xl text-center font-bold text-pink-500 mb-6 drop-shadow-md">
               Login
             </h2>
-            <form className="space-y-5" onSubmit={formSubmit}>
+            <form className="space-y-5" onSubmit={formSubmitKro}>
               <div>
-                <label className="text-blue-900 block mb-1">Email</label>
+                <label className="text-pink-500 block mb-1">Email</label>
                 <input
                   type="email"
-                  className="w-full px-4 py-2 rounded-lg bg-white/20 text-black placeholder:text-gray-500 border border-black-400 focus:outline-none focus:ring-2 focus:ring-pink-300"
+                  className="w-full px-4 py-2 rounded-lg bg-white/20 text-black placeholder:text-gray-500 border border-yellow-400 focus:outline-none focus:ring-2 focus:ring-pink-300"
                   placeholder="Enter your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -58,10 +68,10 @@ const Login = () => {
                 />
               </div>
               <div>
-                <label className="text-blue-900 block mb-1">Password</label>
+                <label className="text-pink-500 block mb-1">Password</label>
                 <input
                   type="password"
-                  className="w-full px-4 py-2 rounded-lg bg-white/20 text-black placeholder:text-gray-500 border border-black-400 focus:outline-none focus:ring-2 focus:ring-pink-300"
+                  className="w-full px-4 py-2 rounded-lg bg-white/20 text-black placeholder:text-gray-500 border border-yellow-400 focus:outline-none focus:ring-2 focus:ring-pink-300"
                   placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -70,16 +80,16 @@ const Login = () => {
               </div>
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-blue-900 to-blue-950 text-[#0f172a] font-semibold py-2 rounded-xl shadow-lg hover:scale-105 transition-transform duration-200"
+                className="w-full bg-gradient-to-r from-pink-400 to-pink-600 text-[#0f172a] font-semibold py-2 rounded-xl shadow-lg hover:scale-105 transition-transform duration-200"
               >
                 Sign In
               </button>
             </form>
             <p className="text-center text-sm text-black mt-6">
-              Don't have an account?{" "}
+              Don’t have an account?{" "}
               <span
-                className="text-blue-400 underline cursor-pointer"
-                onClick={() => navigate("/Register")}
+                className="text-pink-400 underline cursor-pointer"
+                onClick={() => navigate("/register")}
               >
                 Register
               </span>

@@ -1,20 +1,30 @@
-import React, { useState } from "react";
-import Sidebar from "../components/customer/Sidebar";
-import Overview from "../components/customer/Overview.jsx";
-import Profile from "../components/customer/Profile";
-import Bookings from "../components/customer/Bookings";
-import Support from "../components/customer/Support";
-import Feedback from "../components/customer/Feedback";
+import React, { useEffect, useState } from "react";
+import Sidebar from "../components/Customer/Sidebar";
+import Overview from "../components/Customer/Overview";
+import Profile from "../components/Customer/Profile";
+import Bookings from "../components/Customer/Bookings";
+import Support from "../components/Customer/Support";
+import Feedback from "../components/Customer/Feedback";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const CustomerDashboard = () => {
+  const navigate = useNavigate();
   const [active, setActive] = useState("profile");
+  const { isLogin, isAdmin } = useAuth();
+
+  useEffect(() => {
+    if (!isLogin || isAdmin) {
+      navigate("/login");
+    }
+  }, [isLogin, isAdmin, navigate]);
+
 
   return (
     <>
       <div className="flex">
         <Sidebar active={active} setActive={setActive} />
-        
-        <div className="border w-full mt-8">
+        <div className="border w-full">
           {active === "overview" && <Overview />}
           {active === "profile" && <Profile />}
           {active === "bookings" && <Bookings />}
